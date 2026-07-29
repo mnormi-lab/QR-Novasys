@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ms">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0c6d72" />
+    <title>NovaSyY Lab Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#dashboard" aria-label="NovaSyY Lab Hub"><span class="brand-mark">N</span><span>NovaSyY<br /><small>LAB HUB</small></span></a>
+        <button class="icon-button" id="syncButton" type="button" title="Segerakkan dengan Google Drive" aria-label="Segerakkan dengan Google Drive">↻</button>
+      </header>
+
+      <section id="dashboard" class="page active">
+        <div class="hero">
+          <p class="eyebrow">PUSAT KAWALAN MAKMAL</p>
+          <h1>Selamat datang,<br /><span id="greeting">Pengguna</span>.</h1>
+          <p>Rekod, semak dan urus operasi makmal dalam satu tempat.</p>
+          <div class="drive-status" id="driveStatus"><span></span> Simpanan setempat</div>
+        </div>
+        <section class="summary-grid" aria-label="Ringkasan rekod">
+          <article class="stat-card teal"><span>▣</span><strong id="logCount">0</strong><small>Aktiviti Log</small></article>
+          <article class="stat-card orange"><span>◫</span><strong id="loanCount">0</strong><small>Pinjaman Aktif</small></article>
+          <article class="stat-card blue"><span>⌁</span><strong id="mccbCount">0</strong><small>Ujian MCCB</small></article>
+        </section>
+        <section class="section-head"><div><p class="eyebrow">AKTIVITI TERKINI</p><h2>Rekod terbaru</h2></div><button class="link-button" type="button" data-go="log">Lihat semua</button></section>
+        <div id="recentList" class="recent-list"><p class="empty">Belum ada rekod. Tambah rekod pertama anda.</p></div>
+        <section class="quick-actions">
+          <button type="button" data-go="log"><b>＋</b> Aktiviti baharu</button>
+          <button type="button" data-go="loan"><b>＋</b> Pinjaman aset</button>
+          <button type="button" data-go="mccb"><b>＋</b> Laporan ujian</button>
+        </section>
+      </section>
+
+      <section id="log" class="page">
+        <div class="page-title"><p class="eyebrow">MODUL 01</p><h1>Buku Log Makmal</h1><p>Rekod kehadiran dan aktiviti harian.</p></div>
+        <form id="logForm" class="form-card">
+          <div class="form-card-head"><h2>Aktiviti baharu</h2><span class="pill">Buku Log</span></div>
+          <div class="field-grid">
+            <label>Tarikh<input required type="date" name="date" /></label>
+            <label>Masa<input required type="time" name="time" /></label>
+          </div>
+          <label>Item / aktiviti<input required name="activity" placeholder="Contoh: Pengujian air compressor" /></label>
+          <label>Butiran aktiviti<textarea required name="details" rows="3" placeholder="Terangkan kerja, keputusan atau pemerhatian..."></textarea></label>
+          <label>Nama kehadiran<input required name="attendees" placeholder="Contoh: Nurmi, Zaini, Ali" /></label>
+          <label>Catatan tambahan<textarea name="notes" rows="2" placeholder="Pilihan"></textarea></label>
+          <button class="primary-button" type="submit">Simpan aktiviti <span>→</span></button>
+        </form>
+        <div class="records" id="logRecords"></div>
+      </section>
+
+      <section id="loan" class="page">
+        <div class="page-title"><p class="eyebrow">MODUL 02</p><h1>KEW.PA-9</h1><p>Permohonan pergerakan atau pinjaman aset alih.</p></div>
+        <form id="loanForm" class="form-card">
+          <div class="form-card-head"><h2>Permohonan baharu</h2><span class="pill orange-pill">KEW.PA-9</span></div>
+          <div class="field-grid"><label>No. permohonan<input required name="applicationNo" placeholder="PA-2026-001" /></label><label>Tarikh pinjam<input required type="date" name="borrowDate" /></label></div>
+          <label>Nama pemohon<input required name="applicant" placeholder="Nama penuh" /></label>
+          <div class="field-grid"><label>Jawatan<input required name="position" placeholder="Jawatan" /></label><label>Bahagian<input required name="department" placeholder="Bahagian / unit" /></label></div>
+          <label>Tujuan penggunaan<textarea required name="purpose" rows="2" placeholder="Tujuan pinjaman aset"></textarea></label>
+          <label>Tempat digunakan<input required name="location" placeholder="Lokasi penggunaan aset" /></label>
+          <div class="asset-box"><p>MAKLUMAT ASET</p><label>No. siri pendaftaran<input required name="assetNo" placeholder="No. aset / siri" /></label><label>Keterangan aset<input required name="assetDescription" placeholder="Contoh: Digital Multimeter" /></label></div>
+          <div class="field-grid"><label>Tarikh jangka pulang<input required type="date" name="expectedReturn" /></label><label>Status kelulusan<select name="approval"><option>Menunggu kelulusan</option><option>Lulus</option><option>Tidak lulus</option></select></label></div>
+          <button class="primary-button orange-button" type="submit">Hantar permohonan <span>→</span></button>
+        </form>
+        <div class="records" id="loanRecords"></div>
+      </section>
+
+      <section id="mccb" class="page">
+        <div class="page-title"><p class="eyebrow">MODUL 03</p><h1>MCCB Test Report</h1><p>Laporan ujian pembukaan di bawah keadaan beban lampau.</p></div>
+        <form id="mccbForm" class="form-card">
+          <div class="form-card-head"><h2>Laporan ujian baharu</h2><span class="pill blue-pill">MCCB</span></div>
+          <div class="field-grid"><label>Test Ref. No.<input required name="testRef" placeholder="MCCB-2026-001" /></label><label>Tarikh ujian<input required type="date" name="testDate" /></label></div>
+          <div class="field-grid"><label>Job No.<input required name="jobNo" placeholder="No. kerja" /></label><label>Syarikat<input name="company" placeholder="Nama syarikat" /></label></div>
+          <div class="field-grid"><label>Jenama MCCB<input required name="brand" placeholder="Contoh: Schneider" /></label><label>Model<input required name="model" placeholder="Model" /></label></div>
+          <div class="field-grid three"><label>Bil. pole<select name="poles"><option>1P</option><option>2P</option><option selected>3P</option><option>4P</option></select></label><label>Rated current (A)<input required type="number" min="0" name="ratedCurrent" /></label><label>Short circuit (kA)<input type="number" min="0" step="0.1" name="shortCircuit" /></label></div>
+          <div class="asset-box"><p>KEADAAN UJIAN</p><div class="field-grid three"><label>Suhu mula (°C)<input type="number" step="0.1" name="tempStart" /></label><label>Suhu akhir (°C)<input type="number" step="0.1" name="tempEnd" /></label><label>Kelembapan (%)<input type="number" min="0" max="100" name="humidity" /></label></div></div>
+          <div class="asset-box"><p>KEPUTUSAN UJIAN — CLAUSE 8.3.3.1.3</p><div class="field-grid"><label>1.05 × In — masa trip (min)<input type="number" step="0.01" name="trip105" /></label><label>Keputusan<select name="result105"><option>Pass</option><option>Fail</option><option>Not conducted</option></select></label><label>1.30 × In — masa trip (min)<input type="number" step="0.01" name="trip130" /></label><label>Keputusan<select name="result130"><option>Pass</option><option>Fail</option><option>Not conducted</option></select></label></div></div>
+          <label>Diuji oleh<input required name="testedBy" placeholder="Nama penguji" /></label>
+          <label>Disahkan oleh<input name="verifiedBy" placeholder="Nama penyemak" /></label>
+          <button class="primary-button blue-button" type="submit">Simpan laporan <span>→</span></button>
+        </form>
+        <div class="records" id="mccbRecords"></div>
+      </section>
+    </main>
+
+    <nav class="tabbar" aria-label="Navigasi utama">
+      <button class="tab active" data-go="dashboard"><span>⌂</span>Utama</button>
+      <button class="tab" data-go="log"><span>▤</span>Buku Log</button>
+      <button class="tab" data-go="loan"><span>▱</span>KEW.PA-9</button>
+      <button class="tab" data-go="mccb"><span>⌁</span>MCCB</button>
+    </nav>
+    <div class="toast" id="toast" role="status"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
